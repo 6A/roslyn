@@ -130,11 +130,11 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             _analysisOptions = analysisOptions;
             _cancellationToken = cancellationToken;
 
-            _compilationData = new CompilationData(_compilation);
-            _analysisState = new AnalysisState(analyzers, _compilationData, _compilation.Options);
+            _compilationData = new CompilationData(compilation);
+            _analysisState = new AnalysisState(analyzers, _compilationData, compilation.Options);
             _analysisResultBuilder = new AnalysisResultBuilder(analysisOptions.LogAnalyzerExecutionTime, analyzers);
             _analyzerManager = new AnalyzerManager(analyzers);
-            _driverPool = new ObjectPool<AnalyzerDriver>(() => _compilation.AnalyzerForLanguage(analyzers, _analyzerManager));
+            _driverPool = new ObjectPool<AnalyzerDriver>(() => compilation.AnalyzerForLanguage(analyzers, _analyzerManager));
             _executingConcurrentTreeTasksOpt = analysisOptions.ConcurrentAnalysis ? new Dictionary<SyntaxTree, Tuple<Task, CancellationTokenSource>>() : null;
             _concurrentTreeTaskTokensOpt = analysisOptions.ConcurrentAnalysis ? new Dictionary<Task, int>() : null;
             _executingCompilationOrNonConcurrentTreeTask = null;
