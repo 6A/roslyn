@@ -206,7 +206,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         private static AnalyzerLoadFailureEventArgs CreateAnalyzerFailedArgs(Exception e, string typeNameOpt = null)
         {
             // unwrap:
-            e = (e as TargetInvocationException) ?? e;
+            e = (e as TargetInvocationException)?.InnerException ?? e;
 
             // remove all line breaks from the exception message
             string message = e.Message.Replace("\r", "").Replace("\n", "");
